@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#3B3B42" />
+    <TextView
+        android:id="@+id/tv_timezone_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VietNam, Ha Noi"
+        android:background="#131313"
+        android:textColor="@color/white"
+        android:paddingVertical="5dp"
+        android:textSize="18dp"
+        android:paddingHorizontal="10dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#3B3B42" />
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/internationalTime"
+        android:title="International Time"
+        android:icon="@drawable/internet"
+        />
+    <item
+        android:id="@+id/alarm"
+        android:title="Alarm"
+        android:icon="@drawable/alarm"/>
+    <item
+        android:id="@+id/stopWatch"
+        android:title="Stop Watch"
+        android:icon="@drawable/stopwatch"/>
+    <item
+        android:id="@+id/timer"
+        android:title="Timer"
+        android:icon="@drawable/timer"/>
+    <item
+        android:id="@+id/weather"
+        android:title="Weather"
+        android:icon="@drawable/sun"/>
+</menu>

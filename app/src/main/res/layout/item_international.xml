@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/linear_international">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#3B3B42" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/img_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/delete"
+                android:visibility="gone"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="10dp"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_itn_timeZone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hôm nay, + 0G"
+                    android:textColor="#939292"/>
+                <TextView
+                    android:id="@+id/tv_itn_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hà Nội"
+                    android:textSize="26dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_itn_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="40dp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+        <View
+            android:id="@+id/border_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#3B3B42"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_itn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="delete"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:background="#FD0303"
+        android:textColor="@color/white"
+        android:paddingHorizontal="10dp"/>
+
+
+</LinearLayout>
