@@ -67,7 +67,8 @@ public class weatherFragment extends Fragment {
     }
     private void fetchData(String name){
         viewModel.getCity(name).observe(getViewLifecycleOwner(),CodeCity ->{
-            viewModel.getCurrentConditions(CodeCity).observe(getViewLifecycleOwner(),CurrentConditions ->{
+            String[] part = CodeCity.split("-");
+            viewModel.getCurrentConditions(part[0],part[1]).observe(getViewLifecycleOwner(),CurrentConditions ->{
                 binding.tvWeatherLocation.setText(CurrentConditions.getLocation());
                 binding.tvWeatherTemperature.setText(String.valueOf(CurrentConditions.getTemperature()));
                 binding.tvWeatherDetail.setText(CurrentConditions.getWeatherCondition());
@@ -80,7 +81,7 @@ public class weatherFragment extends Fragment {
                                 .listener(new SvgSoftwareLayerSetter());
                 requestBuilder.load("https://www.accuweather.com/images/weathericons/"+CurrentConditions.getIconWeather()+".svg").into(binding.imgWeather);
             });
-            viewModel.getForecast12Hours(CodeCity).observe(getViewLifecycleOwner(), Forecast12Hours ->{
+            viewModel.getForecast12Hours(part[0]).observe(getViewLifecycleOwner(), Forecast12Hours ->{
                 weatherHorAdapter adapter = new weatherHorAdapter(requireActivity());
                 adapter.setData(Forecast12Hours);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -88,7 +89,7 @@ public class weatherFragment extends Fragment {
                 binding.recycleViewForecast12hour.setAdapter(adapter);
             });
 
-            viewModel.getForecast5Days(CodeCity).observe(getViewLifecycleOwner(), Forecast5Days ->{
+            viewModel.getForecast5Days(part[0]).observe(getViewLifecycleOwner(), Forecast5Days ->{
                 weatherAdapter adapter = new weatherAdapter(requireActivity());
                 adapter.setData(Forecast5Days);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false);

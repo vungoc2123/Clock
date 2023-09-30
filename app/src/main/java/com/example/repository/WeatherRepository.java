@@ -33,7 +33,7 @@ public class WeatherRepository {
                         String json = response.body().string();
                         JSONArray jsonArray = new JSONArray(json);
                         JSONObject jsonObject = jsonArray.getJSONObject(0);
-                        data.setValue(jsonObject.getString("Key"));
+                        data.setValue(jsonObject.getString("Key")+"-"+jsonObject.getString("EnglishName"));
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     } catch (IOException e) {
@@ -48,7 +48,7 @@ public class WeatherRepository {
         });
         return data;
     }
-    public LiveData<WeatherModel> getCurrentConditions(String locationKey) {
+    public LiveData<WeatherModel> getCurrentConditions(String locationKey,String name) {
         MutableLiveData<WeatherModel> data = new MutableLiveData<>();
         Call<ResponseBody> call = weatherService.getCurrentConditions(locationKey, "rK3WpFTcVXveEoPOG8xZOiCpjasZiAg8", "en-us", true);
         call.enqueue(new Callback<ResponseBody>() {
@@ -62,7 +62,7 @@ public class WeatherRepository {
                         System.out.println(jsonObject.getString("WeatherText"));
                         System.out.println(jsonObject.getDouble("RelativeHumidity"));
                         System.out.println(jsonObject.getDouble("WeatherIcon"));
-                        WeatherModel weatherModel = new WeatherModel("ha noi",30.9,jsonObject.getString("WeatherText"),2);
+                        WeatherModel weatherModel = new WeatherModel(name,jsonObject.getJSONObject("Temperature").getJSONObject("Imperial").getInt("Value"),jsonObject.getString("WeatherText"),jsonObject.getInt("WeatherIcon"));
                         data.setValue(weatherModel);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);

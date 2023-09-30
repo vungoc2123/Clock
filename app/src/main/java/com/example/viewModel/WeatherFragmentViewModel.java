@@ -32,11 +32,11 @@ public class WeatherFragmentViewModel extends AndroidViewModel {
         });
         return cityMutableLiveData;
     }
-    public MutableLiveData<WeatherModel> getCurrentConditions(String locationKey){
+    public MutableLiveData<WeatherModel> getCurrentConditions(String locationKey, String name){
         if(currentConditionsMutableLiveData == null){
             currentConditionsMutableLiveData = new MutableLiveData<>();
         }
-        weatherRepository.getCurrentConditions(locationKey).observeForever(CurrentConditions -> {
+        weatherRepository.getCurrentConditions(locationKey,name).observeForever(CurrentConditions -> {
             currentConditionsMutableLiveData.setValue(CurrentConditions);
         });
         return currentConditionsMutableLiveData;
