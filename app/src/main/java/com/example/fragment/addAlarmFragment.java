@@ -29,8 +29,9 @@ import java.util.List;
 
 
 public class addAlarmFragment extends Fragment {
-    private FragmentAddAlarmBinding binding;
+    public static FragmentAddAlarmBinding binding;
     private AlarmDAO alarmDAO;
+
     public addAlarmFragment() {
         // Required empty public constructor
     }
@@ -50,7 +51,7 @@ public class addAlarmFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentAddAlarmBinding.inflate(inflater,container,false);
+        binding = FragmentAddAlarmBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -59,7 +60,8 @@ public class addAlarmFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.tpAlarm.setIs24HourView(true);
     }
-    public void showBottomSheet(Activity activity){
+
+    public void showBottomSheet(Activity activity) {
         BottomSheetDialog sheetDialog = new BottomSheetDialog(activity);
         BottomSheetBehavior<View> bottomSheetBehavior;
         binding = FragmentAddAlarmBinding.inflate(LayoutInflater.from(activity));
@@ -74,16 +76,24 @@ public class addAlarmFragment extends Fragment {
         int targetHeight = (int) (screenHeight * 0.92); // 95% của chiều cao màn hình
 
         layout.setMinimumHeight(targetHeight);
-        binding.tpAlarm.setIs24HourView(true);
         sheetDialog.show();
 
         Calendar calendar = Calendar.getInstance();
         alarmDAO = new AlarmDAO(activity);
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 
+        binding.tpAlarm.setIs24HourView(true);
         binding.tpAlarm.setOnTimeChangedListener((view1, hourOfDay, minute) -> {
-            calendar.set(Calendar.HOUR_OF_DAY,binding.tpAlarm.getHour());
-            calendar.set(Calendar.MINUTE,binding.tpAlarm.getMinute());
+            calendar.set(Calendar.HOUR_OF_DAY, binding.tpAlarm.getHour());
+            calendar.set(Calendar.MINUTE, binding.tpAlarm.getMinute());
+        });
+        binding.linearAlarmRepeat.setOnClickListener(view1 -> {
+            daysFragment bottomSheetFragment = new daysFragment();
+            bottomSheetFragment.showBottomSheet(activity);
+        });
+        binding.linearAlarmTone.setOnClickListener(view1 -> {
+            toneAlarmFragment  bottomSheetFragment = new toneAlarmFragment();
+            bottomSheetFragment.showBottomSheet(activity);
         });
         binding.tvAlarmSave.setOnClickListener(view1 -> {
             int repeat = binding.switchAlarmAgain.isChecked() ? 1 : 0;
@@ -95,17 +105,20 @@ public class addAlarmFragment extends Fragment {
             alarmModel.setStatus(1);
             alarmModel.setRepeat(repeat);
             int kq = alarmDAO.insertAlarm(alarmModel);
-            if (kq>0){
+            if (kq > 0) {
                 Toast.makeText(activity, "Thành công", Toast.LENGTH_SHORT).show();
             }
             List<AlarmModel> list = alarmDAO.getAllAlarm();
             alarmFragment.sortList(list);
-            alarmFragment.adapter.setData(list,false);
+            alarmFragment.adapter.setData(list, false);
+            sheetDialog.cancel();
+        });
+        binding.tvAlarmCancel.setOnClickListener(view1 -> {
             sheetDialog.cancel();
         });
     }
 
-    public void showDetailAlarm(Activity activity, AlarmModel alarm){
+    public void showDetailAlarm(Activity activity, AlarmModel alarm) {
         BottomSheetDialog sheetDialog = new BottomSheetDialog(activity);
         BottomSheetBehavior<View> bottomSheetBehavior;
         binding = FragmentAddAlarmBinding.inflate(LayoutInflater.from(activity));
@@ -132,13 +145,17 @@ public class addAlarmFragment extends Fragment {
 
         binding.edtAlarmLabel.setText(alarm.getLabel());
         binding.switchAlarmAgain.setChecked(alarm.getRepeat() == 1 ? true : false);
-        binding.tvAlarmRepeatDays.setText("hehe");
+        binding.tvAlarmRepeatDays.setText(alarm.getRepeatDays());
         binding.tvAlarmTone.setText(alarm.getSound());
         binding.tvAlarmDelete.setVisibility(View.VISIBLE);
 
         binding.tpAlarm.setOnTimeChangedListener((view1, hourOfDay, minute) -> {
-            calendar.set(Calendar.HOUR_OF_DAY,binding.tpAlarm.getHour());
-            calendar.set(Calendar.MINUTE,binding.tpAlarm.getMinute());
+            calendar.set(Calendar.HOUR_OF_DAY, binding.tpAlarm.getHour());
+            calendar.set(Calendar.MINUTE, binding.tpAlarm.getMinute());
+        });
+        binding.tvAlarmRepeatDays.setOnClickListener(view1 -> {
+
+
         });
 
         binding.tvAlarmSave.setOnClickListener(view1 -> {
@@ -153,24 +170,24 @@ public class addAlarmFragment extends Fragment {
             alarmModel.setRepeat(repeat);
             try {
                 int kq = alarmDAO.updateAlarm(alarmModel);
-                if (kq>0){
+                if (kq > 0) {
                     Toast.makeText(activity, "Thành công", Toast.LENGTH_SHORT).show();
                     List<AlarmModel> list = alarmDAO.getAllAlarm();
                     alarmFragment.sortList(list);
-                    alarmFragment.adapter.setData(list,false);
+                    alarmFragment.adapter.setData(list, false);
                     sheetDialog.cancel();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
         });
         binding.tvAlarmDelete.setOnClickListener(view1 -> {
             int kq = alarmDAO.delete(alarm.getId());
-            if (kq>0){
+            if (kq > 0) {
                 Toast.makeText(activity, "Thành công", Toast.LENGTH_SHORT).show();
                 List<AlarmModel> list = alarmDAO.getAllAlarm();
                 alarmFragment.sortList(list);
-                alarmFragment.adapter.setData(list,false);
+                alarmFragment.adapter.setData(list, false);
                 sheetDialog.cancel();
             }
         });

@@ -182,7 +182,7 @@ public class timerFragment extends Fragment {
         binding.cvTimerReset.setEnabled(true);
         binding.tvTimerCancel.setAlpha(1f);
         binding.tvTimerStart.setText("Pause");
-        binding.tvTimerStart.setTextColor(Color.parseColor("#faa10c"));
+        binding.tvTimerStart.setTextColor(Color.parseColor("#FAA009"));
         binding.cvTimerStart.getBackground().setTint(Color.parseColor("#312107"));
         binding.cvTimerStart.setRadius(110);
         binding.viewTimerStart.setBackgroundResource(R.drawable.circle_border_yellow);
@@ -195,7 +195,7 @@ public class timerFragment extends Fragment {
         binding.tvTimerCancel.setAlpha(0.5f);
         binding.cvTimerReset.setEnabled(false);
         binding.tvTimerStart.setText("Start");
-        binding.tvTimerStart.setTextColor(Color.parseColor("#24B13B"));
+        binding.tvTimerStart.setTextColor(Color.parseColor("#03FD2A"));
         binding.cvTimerStart.setRadius(110);
         binding.cvTimerStart.getBackground().setTint(Color.parseColor("#0b2c11"));
         binding.viewTimerStart.setBackgroundResource(R.drawable.circle_border_green);
@@ -203,7 +203,7 @@ public class timerFragment extends Fragment {
 
     private void setResume() {
         binding.tvTimerStart.setText("Resume");
-        binding.tvTimerStart.setTextColor(Color.parseColor("#24B13B"));
+        binding.tvTimerStart.setTextColor(Color.parseColor("#03FD2A"));
         binding.cvTimerStart.setRadius(110);
         binding.cvTimerStart.getBackground().setTint(Color.parseColor("#0b2c11"));
         binding.viewTimerStart.setBackgroundResource(R.drawable.circle_border_green);

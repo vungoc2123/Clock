@@ -12,13 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="VietNam, Ha Noi"
-        android:background="#131313"
+        android:fontFamily="@font/roboto_light"
+        android:textStyle="bold"
+        android:background="#1c1c1e"
         android:textColor="@color/white"
         android:paddingVertical="5dp"
         android:textSize="18dp"
         android:paddingHorizontal="10dp"/>
     <View
+        android:id="@+id/view_timezone"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:visibility="gone"
         android:background="#3B3B42" />
 </LinearLayout>

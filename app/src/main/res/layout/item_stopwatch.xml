@@ -15,6 +15,8 @@
             android:layout_weight="1"
             android:text="VietNam, Ha Noi"
             android:textColor="@color/white"
+            android:fontFamily="@font/roboto_light"
+            android:textStyle="bold"
             android:paddingVertical="5dp"
             android:textSize="18dp"
             android:paddingHorizontal="10dp"/>
@@ -23,6 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="VietNam, Ha Noi"
+            android:fontFamily="@font/roboto_light"
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:paddingVertical="5dp"
             android:textSize="18dp"

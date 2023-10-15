@@ -70,7 +70,7 @@ public class weatherFragment extends Fragment {
             String[] part = CodeCity.split("-");
             viewModel.getCurrentConditions(part[0],part[1]).observe(getViewLifecycleOwner(),CurrentConditions ->{
                 binding.tvWeatherLocation.setText(CurrentConditions.getLocation());
-                binding.tvWeatherTemperature.setText(String.valueOf(CurrentConditions.getTemperature()));
+                binding.tvWeatherTemperature.setText(String.format("%.1f",(float)(CurrentConditions.getTemperature()-32)/1.8));
                 binding.tvWeatherDetail.setText(CurrentConditions.getWeatherCondition());
                 RequestBuilder<PictureDrawable> requestBuilder =
                         Glide.with(this)

@@ -44,6 +44,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hà Nội"
+                    android:fontFamily="@font/roboto_light"
+                    android:textStyle="bold"
                     android:textSize="26dp"
                     android:textColor="@color/white"/>
             </LinearLayout>
@@ -53,13 +55,15 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="40dp"
+                android:fontFamily="@font/roboto_light"
                 android:textColor="@color/white"/>
 
         </LinearLayout>
         <View
-            android:id="@+id/border_bottom"
+            android:id="@+id/view_internationaltime"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="#3B3B42"/>
     </LinearLayout>
     <TextView
@@ -70,6 +74,7 @@
         android:textSize="15dp"
         android:gravity="center"
         android:background="#FD0303"
+        android:fontFamily="@font/roboto_light"
         android:textColor="@color/white"
         android:paddingHorizontal="10dp"/>
 

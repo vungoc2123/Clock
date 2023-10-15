@@ -51,13 +51,15 @@ public class internationalTimeAdapter extends RecyclerView.Adapter<international
 
     @Override
     public void onBindViewHolder(@NonNull internationalViewHolder holder, int position) {
-
         setWidth(holder.binding.linearInternational);
         if (check) {
             holder.binding.imgDelete.setVisibility(View.VISIBLE);
             holder.binding.imgDelete.setOnClickListener(view -> {
                 animator(holder.itemView, 0, -160);
             });
+        }
+        if(position == timeZoneModels.size()-1){
+            holder.binding.viewInternationaltime.setVisibility(View.VISIBLE);
         }
         holder.binding.getRoot().setOnClickListener(view -> {
             animator(holder.itemView, -160, 0);

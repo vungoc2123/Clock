@@ -55,6 +55,9 @@ public class timeZoneAdapter extends RecyclerView.Adapter<timeZoneAdapter.timeZo
     public void onBindViewHolder(@NonNull timeZoneViewHolder holder, int position) {
         TimeZoneModel timeZoneModel = timeZoneModels.get(position);
         holder.binding.tvTimezoneName.setText(timeZoneModel.getName());
+        if(position == timeZoneModels.size()-1){
+            holder.binding.viewTimezone.setVisibility(View.VISIBLE);
+        }
         holder.itemView.setOnClickListener(view -> {
             iOnItemClick.onItemClick();
             if(timeZoneModel.getStatus() == 0){

@@ -59,9 +59,7 @@ public class WeatherRepository {
                         String json = response.body().string();
                         JSONArray jsonArray = new JSONArray(json);
                         JSONObject jsonObject = jsonArray.getJSONObject(0);
-                        System.out.println(jsonObject.getString("WeatherText"));
-                        System.out.println(jsonObject.getDouble("RelativeHumidity"));
-                        System.out.println(jsonObject.getDouble("WeatherIcon"));
+
                         WeatherModel weatherModel = new WeatherModel(name,jsonObject.getJSONObject("Temperature").getJSONObject("Imperial").getInt("Value"),jsonObject.getString("WeatherText"),jsonObject.getInt("WeatherIcon"));
                         data.setValue(weatherModel);
                     } catch (JSONException e) {
@@ -88,7 +86,6 @@ public class WeatherRepository {
                 if(response.code() == 200){
                     try {
                         String json = response.body().string();
-                        System.out.println(json);
                         JSONArray jsonArray = new JSONArray(json);
                         List<WeatherModel> weatherModels = new ArrayList<>();
                         for(int i =0;i<jsonArray.length();i++){

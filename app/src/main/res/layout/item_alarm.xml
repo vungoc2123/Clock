@@ -37,6 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="16:52"
+                android:fontFamily="@font/roboto_light"
+                android:textStyle=""
                 android:textColor="#757579"
                 android:textSize="40dp" />
 
@@ -44,7 +46,7 @@
                 android:id="@+id/switch_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:thumbTint="@color/white"
+                android:thumb="@drawable/thumb_selector"
                 app:track="@drawable/track_selector"
                 app:trackTint="@drawable/bg_track"
                 android:layout_marginRight="10dp"/>
@@ -57,13 +59,16 @@
             android:layout_marginLeft="10dp"
             android:paddingBottom="5dp"
             android:text="Báo thức"
+            android:fontFamily="@font/roboto_light"
+            android:textStyle="bold"
             android:textColor="#757579"
             android:textSize="16dp" />
 
         <View
-            android:id="@+id/border_bottom"
+            android:id="@+id/view_alarm"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="#3B3B42" />
     </LinearLayout>
 

@@ -22,6 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Cancel"
+                android:fontFamily="@font/roboto_light"
+                android:textStyle="bold"
                 android:textColor="#ff9f10"
                 android:layout_gravity="start"
                 android:textSize="18dp"/>
@@ -30,6 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save"
+                android:fontFamily="@font/roboto_light"
+                android:textStyle="bold"
                 android:textColor="#ff9f10"
                 android:layout_gravity="start"
                 android:textSize="18dp"/>
@@ -77,6 +81,8 @@
                         android:layout_weight="1"
                         android:textSize="18dp"
                         android:textColor="@color/white"
+                        android:fontFamily="@font/roboto_light"
+                        android:textStyle="bold"
                         android:text="Repeat"/>
                     <TextView
                         android:id="@+id/tv_alarm_repeatDays"
@@ -84,7 +90,10 @@
                         android:layout_height="wrap_content"
                         android:textColor="#9e9da5"
                         android:textSize="18dp"
-                        android:text="Không"/>
+                        android:fontFamily="@font/roboto_light"
+                        android:textStyle="bold"
+                        android:hint="Không"
+                        android:textColorHint="#9e9da5"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -105,6 +114,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="18dp"
+                        android:fontFamily="@font/roboto_light"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:text="Label"/>
                     <EditText
@@ -113,6 +124,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="#9e9da5"
                         android:hint="Báo thức"
+                        android:fontFamily="@font/roboto_light"
+                        android:textStyle="bold"
                         android:textColorHint="#9e9da5"
                         android:backgroundTint="@android:color/transparent"
                         />
@@ -134,6 +147,8 @@
                         android:layout_weight="1"
                         android:textSize="18dp"
                         android:textColor="@color/white"
+                        android:fontFamily="@font/roboto_light"
+                        android:textStyle="bold"
                         android:text="Alarm tone"/>
                     <TextView
                         android:id="@+id/tv_alarm_tone"
@@ -141,7 +156,9 @@
                         android:layout_height="wrap_content"
                         android:textColor="#9e9da5"
                         android:textSize="18dp"
-                        android:text="Radar"/>
+                        android:fontFamily="@font/roboto_light"
+                        android:textStyle="bold"
+                        android:text="Argon"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -162,14 +179,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="18dp"
+                        android:fontFamily="@font/roboto_light"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:text="Alarm again"/>
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switch_alarm_again"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="true"
-                        app:thumbTint="@color/white"
+                        android:checked="false"
+                        android:thumb="@drawable/thumb_selector"
                         app:track="@drawable/track_selector"
                         app:trackTint="@drawable/bg_track"/>
                 </LinearLayout>

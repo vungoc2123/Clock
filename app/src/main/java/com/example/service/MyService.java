@@ -5,11 +5,15 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.IBinder;
 import android.widget.RemoteViews;
 
@@ -19,22 +23,50 @@ import androidx.core.app.NotificationCompat;
 import com.example.broadcast.MyBroadcast;
 import com.example.clock.MainActivity;
 import com.example.clock.R;
+import com.example.model.ToneAlarmModel;
 import com.example.notifycation.MyApplication;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyService extends Service {
     MediaPlayer my_player;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String nameFragment = intent.getStringExtra("nameFragment");
-        sendNotification("stop",nameFragment);
+        String label = intent.getStringExtra("label");
+        String alarmTone = intent.getStringExtra("alarmTone");
+        sendNotification(label,nameFragment);
+
+        RingtoneManager ringtoneManager = new RingtoneManager(this);
+        ringtoneManager.setType(RingtoneManager.TYPE_ALARM);
+
+        Cursor cursor = ringtoneManager.getCursor();
+        long id =0;
+        while (cursor.moveToNext()) {
+            String title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+            if(title.equals(alarmTone)){
+                id = cursor.getLong(RingtoneManager.ID_COLUMN_INDEX);
+                break;
+            }
+        }
+        Uri alarmUri= ContentUris.withAppendedId(Uri.parse("content://media/internal/audio/media"), id);
+
         if ("stop".equals(intent.getAction())) {
             my_player.stop();
             my_player = null;
             stopSelf();
         }else{
             if(my_player == null){
-                my_player = MediaPlayer.create( this, R.raw.chuyencuboqua);
-                my_player.start();
+                try {
+                    my_player = new MediaPlayer();
+                    my_player.setDataSource(this, alarmUri);
+                    my_player.prepare();
+                    my_player.start();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         return super.onStartCommand(intent, flags, startId);

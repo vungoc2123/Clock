@@ -4,18 +4,20 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottomSheet_listCity"
-    android:background="#131313"
+    android:background="#1c1c1e"
     tools:context="com.example.fragment.listTimeZoneFragment">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginVertical="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Choose a city"
+            android:fontFamily="@font/roboto_light"
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="20dp"
             android:gravity="center"
@@ -36,6 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:background="#424040"
                     android:orientation="horizontal">
                     <ImageView
                         android:layout_width="wrap_content"
@@ -49,6 +52,10 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:hint="Search"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/roboto_light"
+                        android:textStyle="bold"
+                        android:textColorHint="#9F9F9F"
                         android:backgroundTint="@android:color/transparent"/>
                 </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -58,12 +65,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cancel"
+                    android:fontFamily="@font/roboto_light"
+                    android:textStyle="bold"
                     android:textColor="#ff9f10"
                     android:layout_marginRight="10dp"/>
             </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleView_timeZone"
                 android:layout_width="match_parent"

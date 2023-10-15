@@ -74,7 +74,9 @@ public class alarmAdapter extends RecyclerView.Adapter<alarmAdapter.alarmViewHol
         holder.binding.tvAlarmTime.setText(alarmModel.getTime());
         holder.binding.tvAlarmLabel.setText(alarmModel.getLabel());
         holder.binding.switchAlarm.setChecked(alarmModel.getStatus() == 1 ? true : false);
-
+        if(position == alarmModels.size()-1){
+            holder.binding.viewAlarm.setVisibility(View.VISIBLE);
+        }
         if(check){
             holder.binding.imgDelete.setVisibility(View.VISIBLE);
             holder.binding.imgDelete.setOnClickListener(view -> {

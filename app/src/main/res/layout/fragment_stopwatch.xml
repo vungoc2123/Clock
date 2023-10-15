@@ -14,6 +14,7 @@
         android:text="00:00,00"
         android:textSize="90dp"
         android:textColor="@color/white"
+        android:fontFamily="@font/roboto_light"
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="100dp"/>
     <LinearLayout
@@ -42,7 +43,9 @@
                     android:layout_height="wrap_content"
                     android:text="Ring"
                     android:layout_gravity="center"
-                    android:textColor="#A8A7AE"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_light"
+                    android:textStyle="bold"
                     android:textSize="18dp"/>
             </androidx.cardview.widget.CardView>
         </FrameLayout>
@@ -72,7 +75,9 @@
                     android:layout_height="wrap_content"
                     android:text="Start"
                     android:layout_gravity="center"
-                    android:textColor="#24B13B"
+                    android:textColor="#17DA36"
+                    android:fontFamily="@font/roboto_light"
+                    android:textStyle="bold"
                     android:textSize="18dp"/>
             </androidx.cardview.widget.CardView>
         </FrameLayout>
@@ -106,6 +111,8 @@
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
                     android:text="VietNam, Ha Noi"
+                    android:fontFamily="@font/roboto_light"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="18dp" />
 
@@ -116,6 +123,8 @@
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
                     android:text="VietNam, Ha Noi"
+                    android:fontFamily="@font/roboto_light"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="18dp" />
             </LinearLayout>
