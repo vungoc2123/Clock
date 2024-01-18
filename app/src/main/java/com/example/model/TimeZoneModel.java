@@ -4,16 +4,20 @@ public class TimeZoneModel {
     private int id;
     private String name;
     private String timezone;
-    private int status;
 
     public TimeZoneModel() {
     }
 
-    public TimeZoneModel(int id, String name, String timezone, int status) {
+    public TimeZoneModel(int id, String name, String timezone) {
         this.id = id;
         this.name = name;
         this.timezone = timezone;
-        this.status = status;
+
+    }
+
+    public TimeZoneModel(String name, String timezone) {
+        this.name = name;
+        this.timezone = timezone;
     }
 
     public int getId() {
@@ -40,11 +44,4 @@ public class TimeZoneModel {
         this.timezone = timezone;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 }

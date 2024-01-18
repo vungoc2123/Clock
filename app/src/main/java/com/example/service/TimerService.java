@@ -13,18 +13,25 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.clock.R;
 import com.example.config.ConfigAlarmManager;
+import com.example.config.ConfigString;
 import com.example.repository.TimerRepository;
 import com.example.viewModel.TimeFragmentViewModel;
 
 public class TimerService extends Service {
     public static CountDownTimer countDownTimer;
-    private long timeSelected =0;
-
+    private long timeSelected = 0;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        timeSelected = intent.getLongExtra("timeSelected",0);
-        startTimer(timeSelected);
+        try {
+            if(intent != null) {
+                timeSelected = intent.getLongExtra(ConfigString.timeSelected, 0);
+                String alarmTone = intent.getStringExtra(ConfigString.sound);
+                startTimer(timeSelected, alarmTone);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -33,7 +40,7 @@ public class TimerService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-    private void startTimer(long time) {
+    private void startTimer(long time,String alarmTone) {
         countDownTimer = new CountDownTimer(time, 1) {
             @Override
             public void onTick(long l) {
@@ -51,16 +58,7 @@ public class TimerService extends Service {
             public void onFinish() {
                 TimerRepository.getInstance().setProgress(0);
                 ConfigAlarmManager configAlarmManager = new ConfigAlarmManager();
-                configAlarmManager.alarmTimer(getApplicationContext());
-//                setStart();
-//                resetTimer();
-//                alarm();
-//                SharedPreferences sharedPreferences = getSharedPreferences("My_file", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.putBoolean("isStart", false);
-//                editor.putLong("timeInitial", 0);
-//                editor.putInt("timeRemaining", 0);
-//                editor.apply();
+                configAlarmManager.alarmTimer(getApplicationContext(),alarmTone);
             }
         };
         countDownTimer.start();

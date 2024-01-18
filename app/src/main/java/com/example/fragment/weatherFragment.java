@@ -59,7 +59,7 @@ public class weatherFragment extends Fragment {
         fetchData("hanoi");
         binding.imgWeatherSearch.setOnClickListener(view1 -> {
             if(binding.edtWeatherSearch.getText().toString().isEmpty()){
-                Toast.makeText(requireActivity(), "Không để trống", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), getString(R.string.toast_empty), Toast.LENGTH_SHORT).show();
             }else{
                 fetchData(binding.edtWeatherSearch.getText().toString());
             }
@@ -93,6 +93,7 @@ public class weatherFragment extends Fragment {
                 weatherAdapter adapter = new weatherAdapter(requireActivity());
                 adapter.setData(Forecast5Days);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false);
+                binding.recycleViewForecast5days.setNestedScrollingEnabled(false); // Tắt cuộn trong RecyclerView
                 binding.recycleViewForecast5days.setLayoutManager(linearLayoutManager);
                 binding.recycleViewForecast5days.setAdapter(adapter);
             });

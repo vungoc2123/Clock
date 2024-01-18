@@ -21,9 +21,10 @@
             android:textSize="18dp"
             android:textStyle="bold" />
         <View
+            android:id="@+id/view_toneAlarm"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#989898" />
+            android:background="@color/gray_line" />
     </LinearLayout>
     <ImageView
         android:id="@+id/img_toneAlarm_selected"
@@ -32,5 +33,5 @@
         android:layout_gravity="center"
         android:visibility="invisible"
         android:src="@drawable/baseline_done_24"
-        app:tint="#ff9f10" />
+        app:tint="@color/yellow_text" />
 </LinearLayout>

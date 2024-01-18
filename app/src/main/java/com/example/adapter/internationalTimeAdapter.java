@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.clock.R;
 import com.example.clock.databinding.ItemInternationalBinding;
+import com.example.database.TimeWorldDAO;
 import com.example.database.TimeZoneDAO;
 import com.example.fragment.internationalFragment;
 import com.example.model.TimeZoneModel;
@@ -23,18 +25,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class internationalTimeAdapter extends RecyclerView.Adapter<internationalTimeAdapter.internationalViewHolder> {
     private Context context;
     private List<TimeZoneModel> timeZoneModels = new ArrayList<>();
-    private TimeZoneDAO timeZoneDAO;
+    private TimeWorldDAO timeWorldDAO;
     private Boolean check = false;
-    private Handler handler;
+
+    private float scale;
 
     public internationalTimeAdapter(Context context) {
         this.context = context;
-        timeZoneDAO = new TimeZoneDAO(context);
+        timeWorldDAO = new TimeWorldDAO(context);
     }
 
     public void setData(List<TimeZoneModel> list, boolean check) {
@@ -52,18 +56,27 @@ public class internationalTimeAdapter extends RecyclerView.Adapter<international
     @Override
     public void onBindViewHolder(@NonNull internationalViewHolder holder, int position) {
         setWidth(holder.binding.linearInternational);
+        scale = context.getResources().getDisplayMetrics().density;
+        AtomicReference<Boolean> checkAnimator = new AtomicReference<>(false);
         if (check) {
             holder.binding.imgDelete.setVisibility(View.VISIBLE);
+            holder.binding.imgItnMenu.setVisibility(View.VISIBLE);
+            holder.binding.tvItnTime.setVisibility(View.GONE);
             holder.binding.imgDelete.setOnClickListener(view -> {
-                animator(holder.itemView, 0, -160);
+                animator(holder.itemView, 0, -(int)(65f * scale + 0.5f));
+                checkAnimator.set(true);
             });
         }
         if(position == timeZoneModels.size()-1){
             holder.binding.viewInternationaltime.setVisibility(View.VISIBLE);
         }
         holder.binding.getRoot().setOnClickListener(view -> {
-            animator(holder.itemView, -160, 0);
+            if(checkAnimator.get()){
+                animator(holder.itemView, -(int)(65f * scale + 0.5f), 0);
+                checkAnimator.set(false);
+            }
         });
+
         TimeZoneModel timeZoneModel = timeZoneModels.get(position);
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
@@ -86,29 +99,26 @@ public class internationalTimeAdapter extends RecyclerView.Adapter<international
         String timeStr = formattedTime.replaceAll("\\D", "");
         int currentTime = Integer.parseInt(timeStr);
         String[] name = timeZoneModel.getName().split(",");
-        holder.binding.tvItnTimeZone.setText(handleDate(currentTime, hour, Integer.parseInt(parts[1])));
+        holder.binding.tvItnTimeZone.setText(handleDate(context, currentTime, hour, Integer.parseInt(parts[1])));
         holder.binding.tvItnName.setText(name[0]);
-        timeZoneModel.setStatus(0);
-
         calendar.add(Calendar.HOUR_OF_DAY, hour);
         calendar.add(Calendar.MINUTE, minute);
-
-
-        handler = new Handler();
+        Handler handler = new Handler();
         Runnable updateTimeRunnable = new Runnable() {
             @Override
             public void run() {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.HOUR_OF_DAY, hour);
-                calendar.add(Calendar.MINUTE, minute);
-                Date date1 = calendar.getTime();
+                Calendar calendar2 = Calendar.getInstance();
+                calendar2.add(Calendar.HOUR_OF_DAY, hour);
+                calendar2.add(Calendar.MINUTE, minute);
+                Date date1 = calendar2.getTime();
                 holder.binding.tvItnTime.setText(dateFormat.format(date1.getTime()));
-                handler.postDelayed(this, 100);
+                handler.postDelayed(this, 1000);
             }
         };
         handler.post(updateTimeRunnable);
         holder.binding.tvItnDelete.setOnClickListener(view -> {
             handleUpdate(timeZoneModel, position, holder.itemView);
+            handler.removeCallbacksAndMessages(null);
         });
     }
 
@@ -116,7 +126,9 @@ public class internationalTimeAdapter extends RecyclerView.Adapter<international
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-        int screenWidth = displayMetrics.widthPixels + 170;
+        scale = context.getResources().getDisplayMetrics().density;
+        int intValue = (int) (45f * scale + 0.5f);
+        int screenWidth = displayMetrics.widthPixels + intValue;
         ViewGroup.LayoutParams layoutParams = linearLayout.getLayoutParams();
         layoutParams.width = screenWidth;
         linearLayout.setLayoutParams(layoutParams);
@@ -136,28 +148,23 @@ public class internationalTimeAdapter extends RecyclerView.Adapter<international
         }
     }
 
-    public String handleDate(int x, int y, int c) {
+    public String handleDate(Context context, int x, int y, int c) {
         int z = Integer.parseInt(y + "00");
+        String time = (y >= 0 ? "+" + y : y) + (c != 0 ? ":" + c : "G");
         if (x + z < 0) {
-            return "Yesterday, " + (y >= 0 ? "+" + y : y) + (c != 0 ? ":" + c : "G");
+            return context.getString(R.string.yesterday) + ", " + time;
         } else if (x + z < 2400) {
-            return "Today, " + (y >= 0 ? "+" + y : y) + (c != 0 ? ":" + c : "G");
+            return context.getString(R.string.today) + ", " + time;
         } else {
-            return "Tomorrow, " + (y >= 0 ? "+" + y : y) + (c != 0 ? ":" + c : "G");
+            return context.getString(R.string.tomorrow) + ", " + time;
         }
     }
 
     public void handleUpdate(TimeZoneModel model, int position, View view) {
-        handler.removeCallbacksAndMessages(null);
-        timeZoneDAO.updateTimeZone(model);
-        List<TimeZoneModel> list = timeZoneDAO.getAllTimeZone();
-        list = internationalFragment.filterList(list);
-        setData(list, false);
+        timeWorldDAO.delete(model.getId());
+        List<TimeZoneModel> list = timeWorldDAO.getAllTimeWorld();
+        setData(list, true);
         animator(view, 0, 0);
-    }
-
-    public void text(TextView textView2) {
-            textView2.setText("");
     }
 
     public void animator(View view, int x, int y) {

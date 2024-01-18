@@ -21,10 +21,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WeatherRepository {
+    String apikey = "rK3WpFTcVXveEoPOG8xZOiCpjasZiAg8";
     WeatherService weatherService = ApiService.getService();
     public LiveData<String> getCity(String nameCity) {
         MutableLiveData<String> data = new MutableLiveData<>();
-        Call<ResponseBody> call = weatherService.getCity(nameCity, "rK3WpFTcVXveEoPOG8xZOiCpjasZiAg8");
+        Call<ResponseBody> call = weatherService.getCity(nameCity, apikey);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -50,7 +51,7 @@ public class WeatherRepository {
     }
     public LiveData<WeatherModel> getCurrentConditions(String locationKey,String name) {
         MutableLiveData<WeatherModel> data = new MutableLiveData<>();
-        Call<ResponseBody> call = weatherService.getCurrentConditions(locationKey, "rK3WpFTcVXveEoPOG8xZOiCpjasZiAg8", "en-us", true);
+        Call<ResponseBody> call = weatherService.getCurrentConditions(locationKey, apikey, "en-us", true);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -79,7 +80,7 @@ public class WeatherRepository {
 
     public LiveData<List<WeatherModel>> getForecast12Hour(String locationKey) {
         MutableLiveData<List<WeatherModel>> data = new MutableLiveData<>();
-        Call<ResponseBody> call = weatherService.getForecast12Hour(locationKey, "rK3WpFTcVXveEoPOG8xZOiCpjasZiAg8");
+        Call<ResponseBody> call = weatherService.getForecast12Hour(locationKey, apikey);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -111,7 +112,7 @@ public class WeatherRepository {
 
     public LiveData<List<WeatherModel>> getForecast5Days(String locationKey) {
         MutableLiveData<List<WeatherModel>> data = new MutableLiveData<>();
-        Call<ResponseBody> call = weatherService.getForecast5Days(locationKey, "rK3WpFTcVXveEoPOG8xZOiCpjasZiAg8");
+        Call<ResponseBody> call = weatherService.getForecast5Days(locationKey, apikey);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

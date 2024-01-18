@@ -9,28 +9,34 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.adapter.daysAdapter;
+import com.example.adapter.toneAlarmAdapter;
 import com.example.clock.R;
 import com.example.clock.databinding.FragmentAddAlarmBinding;
 import com.example.clock.databinding.FragmentDaysBinding;
+import com.example.clock.databinding.FragmentToneAlarmBinding;
 import com.example.database.AlarmDAO;
 import com.example.model.AlarmModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 
 public class daysFragment extends Fragment {
 
-
+    private daysAdapter adapter;
     private FragmentDaysBinding binding;
+
     public daysFragment() {
         // Required empty public constructor
     }
@@ -38,7 +44,6 @@ public class daysFragment extends Fragment {
 
     public static daysFragment newInstance(String param1, String param2) {
         daysFragment fragment = new daysFragment();
-
         return fragment;
     }
 
@@ -74,46 +79,29 @@ public class daysFragment extends Fragment {
         CoordinatorLayout layout = sheetDialog.findViewById(R.id.bottomSheet_days);
         assert layout != null;
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-        int targetHeight = (int) (screenHeight * 0.92); // 92% của chiều cao màn hình
+        int targetHeight = (int) (screenHeight * 1); // 92% của chiều cao màn hình
+
+        List<String> days = new ArrayList<>();
+        days.add(activity.getString(R.string.every_monday));
+        days.add(activity.getString(R.string.every_tuesday));
+        days.add(activity.getString(R.string.every_wednesday));
+        days.add(activity.getString(R.string.every_thursday));
+        days.add(activity.getString(R.string.every_friday));
+        days.add(activity.getString(R.string.every_saturday));
+        days.add(activity.getString(R.string.every_sunday));
+
+        adapter = new daysAdapter(activity);
+        adapter.setData(days);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+        binding.recycleViewDay.setLayoutManager(linearLayoutManager);
+        binding.recycleViewDay.setAdapter(adapter);
 
         binding.tvDaysCancel.setOnClickListener(view1 -> {
             sheetDialog.cancel();
         });
-        binding.tvDaysMonday.setOnClickListener(view1 -> {
-            addAlarmFragment.binding.tvAlarmRepeatDays.setText("Monday");
-            sheetDialog.cancel();
-        });
-        binding.tvDaysTuesday.setOnClickListener(view1 -> {
-            addAlarmFragment.binding.tvAlarmRepeatDays.setText("Tuesday");
-            sheetDialog.cancel();
-        });
-        binding.tvDaysWednesday.setOnClickListener(view1 -> {
-            addAlarmFragment.binding.tvAlarmRepeatDays.setText("Wednesday");
-            sheetDialog.cancel();
-        });
-        binding.tvDaysThursday.setOnClickListener(view1 -> {
-            addAlarmFragment.binding.tvAlarmRepeatDays.setText("Thursday");
-            sheetDialog.cancel();
-        });
-        binding.tvDaysFriday.setOnClickListener(view1 -> {
-            addAlarmFragment.binding.tvAlarmRepeatDays.setText("Friday");
-            sheetDialog.cancel();
-        });
-        binding.tvDaysSaturday.setOnClickListener(view1 -> {
-            addAlarmFragment.binding.tvAlarmRepeatDays.setText("Saturday");
-            sheetDialog.cancel();
-        });
-        binding.tvDaysSunday.setOnClickListener(view1 -> {
-            addAlarmFragment.binding.tvAlarmRepeatDays.setText("Sunday");
-            sheetDialog.cancel();
-        });
-
-
-
-
         layout.setMinimumHeight(targetHeight);
         sheetDialog.show();
-//        sheetDialog.cancel();
     }
 
 }

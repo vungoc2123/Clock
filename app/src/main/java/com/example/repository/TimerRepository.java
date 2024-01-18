@@ -22,8 +22,6 @@ public class TimerRepository {
     public void setData(String newData) {
         data.setValue(newData);
     }
-
-
     public LiveData<Integer> getProgress() {
         return progress;
     }

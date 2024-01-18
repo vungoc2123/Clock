@@ -5,11 +5,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,10 +20,12 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
 
 import com.example.clock.R;
 import com.example.clock.databinding.FragmentTimerBinding;
 import com.example.broadcast.MyBroadcast;
+import com.example.config.ConfigString;
 import com.example.service.TimerService;
 import com.example.viewModel.TimeFragmentViewModel;
 
@@ -31,9 +36,7 @@ public class timerFragment extends Fragment {
     private long timeSelected = 0;
     private boolean isStart = false;
     private int total;
-    private FragmentTimerBinding binding;
-    private AlarmManager alarmManager;
-    private PendingIntent pendingIntent;
+    public static FragmentTimerBinding binding;
     private TimeFragmentViewModel viewModel;
 
     public timerFragment() {
@@ -62,20 +65,13 @@ public class timerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(TimeFragmentViewModel.class);
-
-//        SharedPreferences preferences = requireActivity().getSharedPreferences("My_file",Context.MODE_PRIVATE);
-//        isStart = preferences.getBoolean("isStart", false);
-//        timeSelected = preferences.getLong("timeInitial", 0);
-//        total =(int) timeSelected;
-
-//        if(isStart == true){
-//            setPause();
-//        }else{
+        getFirstRingTone();
         binding.cvTimerReset.setEnabled(false);
         binding.cvTimerStart.setEnabled(false);
         binding.tvTimerCancel.setAlpha(0.3f);
         binding.tvTimerStart.setAlpha(0.3f);
-        //}
+
+
         viewModel.getTimer().observe(getViewLifecycleOwner(), timer -> {
             binding.tvTimerTime.setText(timer);
         });
@@ -88,90 +84,58 @@ public class timerFragment extends Fragment {
                resetTimer();
            }
         });
-        binding.tpTimer.setIs24HourView(true);
-        binding.tpTimer.setHour(0);
-        binding.tpTimer.setMinute(0);
-        binding.tpTimer.setOnTimeChangedListener((timePicker, hourTime, minuteTime) -> {
-            int minute = binding.tpTimer.getMinute();
-            int hour = binding.tpTimer.getHour();
-            timeSelected = (hour * 3600000) + (minute * 60000);
-            total = (int) timeSelected;
-            if (binding.tpTimer.getMinute() == 0 && binding.tpTimer.getHour() == 0) {
-                binding.tvTimerStart.setAlpha(0.3f);
-                binding.cvTimerStart.setEnabled(false);
-            } else {
-                binding.tvTimerStart.setAlpha(1f);
-                binding.cvTimerStart.setEnabled(true);
-            }
-        });
+
         binding.cvTimerStart.setOnClickListener(view1 -> {
             if (!isStart) {
                 setPause();
                 isStart = !isStart;
                 binding.pbTimer.setMax(total);
                 Intent intent = new Intent(getContext(), TimerService.class);
-                intent.putExtra("timeSelected", timeSelected);
+                intent.putExtra(ConfigString.timeSelected, timeSelected);
+                intent.putExtra(ConfigString.sound, binding.tvTimerToneAlarm.getText().toString());
                 requireActivity().startService(intent);
-
             } else {
                 setResume();
                 isStart = !isStart;
-//                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("My_file",Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.putInt("timeRemaining", timeRemaining);
-//                editor.apply();
                 TimerService.countDownTimer.cancel();
             }
         });
+
         binding.cvTimerReset.setOnClickListener(view1 -> {
             setStart();
             resetTimer();
             TimerService.countDownTimer.cancel();
         });
+
+        binding.linearAlarmTone.setOnClickListener(view1 -> {
+            toneAlarmFragment  bottomSheetFragment = new toneAlarmFragment(ConfigString.timerFragment);
+            bottomSheetFragment.showBottomSheet(getActivity());
+        });
+
+        setNumberPicker(binding.hourPicker,23);
+        setNumberPicker(binding.minutePicker,59);
+        setNumberPicker(binding.secondPicker,59);
     }
 
-//    private void startTimer(long time) {
-//        countDownTimer = new CountDownTimer(time, 1) {
-//            @Override
-//            public void onTick(long l) {
-//                long totalSeconds = l / 1000;
-//                int hours = (int) (totalSeconds / 3600);
-//                int minutes = (int) ((totalSeconds % 3600) / 60);
-//                int seconds = (int) (totalSeconds % 60);
-//                int hour = binding.tpTimer.getHour();
-//                if(hour>0){
-//                    binding.tvTimerTime.setText(String.format("%02d:%02d:%02d",hours, minutes, seconds));
-//                }else{
-//                    binding.tvTimerTime.setText(String.format("%02d:%02d", minutes, seconds));
-//                }
-//                binding.pbTimer.setMax(total);
-//                binding.pbTimer.setProgress(total - timeProgress);
-//                timeProgress++;
-//                timeSelected = l;
-//            }
-//            @Override
-//            public void onFinish() {
-//                binding.tvTimerTime.setText(String.format("%02d:%02d", 0, 0));
-//                binding.pbTimer.setProgress(0);
-//                setStart();
-//                resetTimer();
-//                alarm();
-//            }
-//        };
-//        countDownTimer.start();
-//    }
-
-    private void stopTimer() {
-        //countDownTimer.cancel();
+    private void getFirstRingTone(){
+        RingtoneManager ringtoneManager = new RingtoneManager(getActivity());
+        ringtoneManager.setType(RingtoneManager.TYPE_ALARM);
+        Cursor cursor = ringtoneManager.getCursor();
+        while (cursor.moveToNext()) {
+            String title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+            binding.tvTimerToneAlarm.setText(title);
+            break;
+        }
     }
+
 
     private void resetTimer() {
-        int minute = binding.tpTimer.getMinute();
-        int hour = binding.tpTimer.getHour();
-        timeSelected = (hour * 3600000) + (minute * 60000);
+        int hour = binding.hourPicker.getValue();
+        int minute = binding.minutePicker.getValue();
+        int second = binding.secondPicker.getValue();
+        timeSelected = (hour * 3600000) + (minute * 60000) + (second * 1000) ;
         binding.pbTimer.setProgress((int) timeSelected);
         isStart = false;
-        //countDownTimer.cancel();
     }
 
     private void setPause() {
@@ -181,10 +145,10 @@ public class timerFragment extends Fragment {
         binding.tvTimerStart.setAlpha(1f);
         binding.cvTimerReset.setEnabled(true);
         binding.tvTimerCancel.setAlpha(1f);
-        binding.tvTimerStart.setText("Pause");
-        binding.tvTimerStart.setTextColor(Color.parseColor("#FAA009"));
-        binding.cvTimerStart.getBackground().setTint(Color.parseColor("#312107"));
-        binding.cvTimerStart.setRadius(110);
+        binding.tvTimerStart.setText(getString(R.string.pause));
+        binding.tvTimerStart.setTextSize(16);
+        binding.tvTimerStart.setTextColor(ContextCompat.getColor(getActivity(), R.color.yellow_text));
+        binding.cvTimerStart.getBackground().setTint(ContextCompat.getColor(getActivity(), R.color.yellow_bg));
         binding.viewTimerStart.setBackgroundResource(R.drawable.circle_border_yellow);
     }
 
@@ -194,19 +158,48 @@ public class timerFragment extends Fragment {
         binding.tvTimerTime.setText("00:00, 00");
         binding.tvTimerCancel.setAlpha(0.5f);
         binding.cvTimerReset.setEnabled(false);
-        binding.tvTimerStart.setText("Start");
-        binding.tvTimerStart.setTextColor(Color.parseColor("#03FD2A"));
-        binding.cvTimerStart.setRadius(110);
-        binding.cvTimerStart.getBackground().setTint(Color.parseColor("#0b2c11"));
+        binding.tvTimerStart.setTextSize(18);
+        binding.tvTimerStart.setText(getString(R.string.start));
+        binding.tvTimerStart.setTextColor(ContextCompat.getColor(getActivity(), R.color.green));
+        binding.cvTimerStart.getBackground().setTint(ContextCompat.getColor(getActivity(), R.color.green_bg));
         binding.viewTimerStart.setBackgroundResource(R.drawable.circle_border_green);
     }
 
     private void setResume() {
-        binding.tvTimerStart.setText("Resume");
-        binding.tvTimerStart.setTextColor(Color.parseColor("#03FD2A"));
-        binding.cvTimerStart.setRadius(110);
-        binding.cvTimerStart.getBackground().setTint(Color.parseColor("#0b2c11"));
+        binding.tvTimerStart.setText(getString(R.string.resume));
+        binding.tvTimerStart.setTextSize(18);
+        binding.tvTimerStart.setTextColor(ContextCompat.getColor(getActivity(), R.color.green));
+        binding.cvTimerStart.getBackground().setTint(ContextCompat.getColor(getActivity(), R.color.green_bg));
         binding.viewTimerStart.setBackgroundResource(R.drawable.circle_border_green);
+    }
+
+    private void setNumberPicker(NumberPicker numberPicker, int max){
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(max);
+        numberPicker.setWrapSelectorWheel(false);
+        numberPicker.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int i) {
+                return String.format("%01d", i);
+            }
+        });
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                int hour = binding.hourPicker.getValue();
+                int minute = binding.minutePicker.getValue();
+                int second = binding.secondPicker.getValue();
+                timeSelected = (hour * 3600000) + (minute * 60000) + (second * 1000) ;
+                total = (int) timeSelected;
+                if (binding.hourPicker.getValue() == 0 && binding.minutePicker.getValue() == 0  && binding.secondPicker.getValue() == 0) {
+                    binding.tvTimerStart.setAlpha(0.3f);
+                    binding.cvTimerStart.setEnabled(false);
+                } else {
+                    binding.tvTimerStart.setAlpha(1f);
+                    binding.cvTimerStart.setEnabled(true);
+                }
+            }
+        });
     }
 
 }

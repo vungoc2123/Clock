@@ -9,15 +9,19 @@ import android.widget.Filterable;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clock.R;
 import com.example.clock.databinding.ItemTimezoneBinding;
+import com.example.database.TimeWorldDAO;
 import com.example.database.TimeZoneDAO;
 import com.example.fragment.internationalFragment;
 import com.example.model.TimeZoneModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -26,9 +30,10 @@ public class timeZoneAdapter extends RecyclerView.Adapter<timeZoneAdapter.timeZo
     private Context context;
     private List<TimeZoneModel> timeZoneModels = new ArrayList<>();
     private List<TimeZoneModel> timeZoneModels2 = new ArrayList<>();
-    private TimeZoneDAO timeZoneDAO;
 
     private IOnItemClick iOnItemClick;
+
+    private TimeWorldDAO timeWorldDAO;
 
     public void onItemClick(IOnItemClick iOnItemClick) {
         this.iOnItemClick = iOnItemClick;
@@ -36,7 +41,7 @@ public class timeZoneAdapter extends RecyclerView.Adapter<timeZoneAdapter.timeZo
 
     public timeZoneAdapter(Context context) {
         this.context = context;
-        timeZoneDAO = new TimeZoneDAO(context);
+        timeWorldDAO = new TimeWorldDAO(context);
     }
 
     public void setData(List<TimeZoneModel> list) {
@@ -60,14 +65,19 @@ public class timeZoneAdapter extends RecyclerView.Adapter<timeZoneAdapter.timeZo
         }
         holder.itemView.setOnClickListener(view -> {
             iOnItemClick.onItemClick();
-            if(timeZoneModel.getStatus() == 0){
-                Date date = new Date();
-                int unixTimestamp = (int) date.getTime();
-                timeZoneModel.setStatus(unixTimestamp);
-                update(timeZoneModel);
-                List<TimeZoneModel> times = timeZoneDAO.getAllTimeZone();
-                times = internationalFragment.filterList(times);
+            List<TimeZoneModel> list = timeWorldDAO.getAllTimeWorld();
+            List<String> listName = new ArrayList<>();
+            for(TimeZoneModel model : list){
+                listName.add(model.getName());
+            }
+            if(!listName.contains(timeZoneModel.getName())){
+                TimeZoneModel model = new TimeZoneModel(timeZoneModel.getName(), timeZoneModel.getTimezone());
+                timeWorldDAO.insert(model);
+                List<TimeZoneModel> times =  timeWorldDAO.getAllTimeWorld();
                 internationalFragment.adapter.setData(times,false);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                internationalFragment.binding.recycleViewInternational.setLayoutManager(linearLayoutManager);
+                internationalFragment.binding.recycleViewInternational.setAdapter(internationalFragment.adapter);
             }
         });
     }
@@ -84,16 +94,6 @@ public class timeZoneAdapter extends RecyclerView.Adapter<timeZoneAdapter.timeZo
         public timeZoneViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = ItemTimezoneBinding.bind(itemView);
-        }
-    }
-
-    public void update(TimeZoneModel timeZoneModel) {
-        int kq = timeZoneDAO.updateTimeZone(timeZoneModel);
-        if (kq == -1) {
-            Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
-        }
-        if (kq == 1) {
-            Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
         }
     }
 

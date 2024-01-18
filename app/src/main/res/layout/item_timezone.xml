@@ -6,7 +6,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#3B3B42" />
+        android:background="@color/gray_line" />
     <TextView
         android:id="@+id/tv_timezone_name"
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:text="VietNam, Ha Noi"
         android:fontFamily="@font/roboto_light"
         android:textStyle="bold"
-        android:background="#1c1c1e"
+        android:background="@color/black_bg"
         android:textColor="@color/white"
         android:paddingVertical="5dp"
         android:textSize="18dp"
@@ -24,5 +24,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:visibility="gone"
-        android:background="#3B3B42" />
+        android:background="@color/gray_line" />
 </LinearLayout>

@@ -3,7 +3,7 @@
     <style name="styles">
         <item name="android:textColor">@android:color/transparent</item>
         <item name="android:colorControlNormal">@android:color/transparent</item>
-        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColorPrimary">#C2C0C0</item>
         <item name="android:textSize">30dp</item>
     </style>
 </resources>

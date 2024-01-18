@@ -12,11 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00:00,00"
-        android:textSize="90dp"
+        android:textSize="80dp"
         android:textColor="@color/white"
         android:fontFamily="@font/roboto_light"
         android:layout_gravity="center_horizontal"
-        android:layout_marginVertical="100dp"/>
+        android:layout_marginVertical="100dp"
+        android:layout_marginHorizontal="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,13 +36,13 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:backgroundTint="#333333"
-                app:cardCornerRadius="50dp">
+                android:backgroundTint="@color/gray_bg_btn"
+                app:cardCornerRadius="40dp">
                 <TextView
                     android:id="@+id/tv_stopWatch_ring"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ring"
+                    android:text="@string/lap"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
                     android:fontFamily="@font/roboto_light"
@@ -67,28 +68,29 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:backgroundTint="#0b2c11"
-                app:cardCornerRadius="50dp">
+                android:backgroundTint="@color/green_bg"
+                app:cardCornerRadius="40dp">
+
                 <TextView
                     android:id="@+id/tv_stopWatch_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Start"
                     android:layout_gravity="center"
-                    android:textColor="#17DA36"
                     android:fontFamily="@font/roboto_light"
-                    android:textStyle="bold"
-                    android:textSize="18dp"/>
+                    android:text="@string/start"
+                    android:textColor="@color/green"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
             </androidx.cardview.widget.CardView>
         </FrameLayout>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#3B3B42"
+        android:background="@color/gray_line"
         android:layout_marginTop="20dp"/>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <!-- Bọc tất cả các phần tử con trong một layout cha -->
@@ -110,7 +112,6 @@
                     android:layout_weight="1"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
-                    android:text="VietNam, Ha Noi"
                     android:fontFamily="@font/roboto_light"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -122,7 +123,6 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
-                    android:text="VietNam, Ha Noi"
                     android:fontFamily="@font/roboto_light"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -132,7 +132,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#3B3B42" />
+                android:background="@color/gray_line" />
 
             <!-- Bao gồm RecyclerView là một phần tử con khác -->
             <androidx.recyclerview.widget.RecyclerView
@@ -140,6 +140,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

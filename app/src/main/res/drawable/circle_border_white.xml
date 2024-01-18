@@ -3,5 +3,5 @@
     android:shape="oval">
     <stroke
         android:width="2dp"
-        android:color="#333333" />
+        android:color="@color/gray_bg_btn" />
 </shape>

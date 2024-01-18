@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottomSheet_listCity"
-    android:background="#1c1c1e"
+    android:background="@color/black_bg"
     tools:context="com.example.fragment.listTimeZoneFragment">
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose a city"
+            android:text="@string/choose_city"
             android:fontFamily="@font/roboto_light"
             android:textStyle="bold"
             android:textColor="@color/white"
@@ -38,24 +38,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:background="#424040"
+                    android:background="@color/gray_search"
                     android:orientation="horizontal">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/baseline_search_24"
                         android:paddingHorizontal="10dp"
-                        app:tint="#9F9F9F"/>
+                        app:tint="@color/gray_text"/>
                     <EditText
                         android:id="@+id/edt_timeZone_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:hint="Search"
+                        android:hint="@string/search"
                         android:textColor="@color/white"
                         android:fontFamily="@font/roboto_light"
                         android:textStyle="bold"
-                        android:textColorHint="#9F9F9F"
+                        android:textColorHint="@color/gray_text"
                         android:backgroundTint="@android:color/transparent"/>
                 </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -64,10 +64,10 @@
                     android:id="@+id/tv_timeZone_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:fontFamily="@font/roboto_light"
                     android:textStyle="bold"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_marginRight="10dp"/>
             </LinearLayout>
         <FrameLayout
@@ -89,157 +89,157 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="A"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="B"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="C"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="D"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="E"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="F"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="G"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="H"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="I"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="J"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="K"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="L"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="M"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="N"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="O"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="P"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Q"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="R"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="S"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="T"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="U"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="V"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="W"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="X"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Y"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Z"
-                    android:textColor="#ff9f10"
+                    android:textColor="@color/yellow_text"
                     android:layout_gravity="end"/>
             </LinearLayout>
 

@@ -1,5 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Clock</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="world_clock">World Clock</string>
+    <string name="alarm">Alarm</string>
+    <string name="stopwatch">Stopwatch</string>
+    <string name="timer">Timer</string>
+    <string name="weather">Weather</string>
+    <string name="choose_city">Choose a city</string>
+    <string name="edit">Edit</string>
+    <string name="search">Search</string>
+    <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="done">Done</string>
+    <string name="repeat">Repeat</string>
+    <string name="label">Label</string>
+    <string name="sound">Sound</string>
+    <string name="snooze">Snooze</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="reset">Reset</string>
+    <string name="lap">Lap</string>
+    <string name="when_the_timer_ends">When the timer ends</string>
+    <string name="forecast_the_next_12_hours">FORECAST FOR THE NEXT 12 HOURS</string>
+    <string name="forecast_the_next_5_days">FORECAST FOR THE NEXT 5 DAYs</string>
+    <string name="delete">Delete</string>
+    <string name="delete_alarm">Delete Alarm</string>
+    <string name="never">Never</string>
+
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="sun">Sun</string>
+
+    <string name="every_day">Every day</string>
+    <string name="weekends">Weekends</string>
+    <string name="every_monday">Every Monday</string>
+    <string name="every_tuesday">Every Tuesday</string>
+    <string name="every_wednesday">Every Wednesday</string>
+    <string name="every_thursday">Every Thursday</string>
+    <string name="every_friday">Every Friday</string>
+    <string name="every_saturday">Every Saturday</string>
+    <string name="every_sunday">Every Sunday</string>
+    <string name="every">Every</string>
+    <string name="day">day</string>
+
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="tomorrow">Tomorrow</string>
+
+    <string name="toast_success">Edit Success</string>
+    <string name="toast_failed">Edit Failed</string>
+    <string name="toast_empty">Do not leave blank</string>
+
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
+    <string name="second">Second</string>
+
+    <string name="store">Store</string>
+    <string name="tone_store">Tone Store</string>
+    <string name="dowload_all">Dowload all purchased tones</string>
 </resources>

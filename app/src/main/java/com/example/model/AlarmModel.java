@@ -1,8 +1,9 @@
 package com.example.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AlarmModel {
+public class AlarmModel implements Serializable {
     private int id;
     private String label;
     private String time;

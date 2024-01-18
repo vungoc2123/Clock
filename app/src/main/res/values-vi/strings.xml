@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Đồng hồ</string>
+    <string name="world_clock">Đồng hồ thế giới</string>
+    <string name="alarm">Báo thức</string>
+    <string name="stopwatch">Đồng hồ bấm giờ</string>
+    <string name="timer">Đồng hồ đếm ngược</string>
+    <string name="weather">Thời tiết</string>
+    <string name="choose_city">Chọn một thành phố</string>
+    <string name="edit">Sửa</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="cancel">Hủy</string>
+    <string name="back">Quay lại</string>
+    <string name="save">Lưu</string>
+    <string name="done">Hoàn tất</string>
+    <string name="repeat">Lặp lại</string>
+    <string name="label">Nhãn</string>
+    <string name="sound">Âm thanh</string>
+    <string name="snooze">Báo lại</string>
+    <string name="start">Bắt đầu</string>
+    <string name="stop">Dừng</string>
+    <string name="pause">Tạm dừng</string>
+    <string name="resume">Tiếp tục</string>
+    <string name="reset">Đặt lại</string>
+    <string name="lap">Vòng</string>
+    <string name="when_the_timer_ends">Khi đồng hồ kết thúc</string>
+    <string name="forecast_the_next_12_hours">DỰ BÁO 12 GIỜ TỚI </string>
+    <string name="forecast_the_next_5_days">DỰ BÁO 5 NGÀY TỚI</string>
+    <string name="delete">Xóa</string>
+    <string name="delete_alarm">Xóa báo thức</string>
+    <string name="never">Không</string>
+
+    <string name="monday">Thứ Hai</string>
+    <string name="tuesday">Thứ Ba</string>
+    <string name="wednesday">Thứ Tư</string>
+    <string name="thursday">Thứ Năm</string>
+    <string name="friday">Thứ Sáu</string>
+    <string name="saturday">Thứ Bảy</string>
+    <string name="sunday">Chủ Nhật</string>
+
+    <string name="mon">Thứ 2</string>
+    <string name="tue">Thứ 3</string>
+    <string name="wed">Thứ 4</string>
+    <string name="thu">Thứ 5</string>
+    <string name="fri">Thứ 6</string>
+    <string name="sat">Thứ 7</string>
+    <string name="sun">CN</string>
+
+    <string name="every_day">Mọi ngày</string>
+    <string name="weekends">Cuối tuần</string>
+    <string name="every_monday">Mọi Thứ Hai</string>
+    <string name="every_tuesday">Mọi Thứ Ba</string>
+    <string name="every_wednesday">Mọi Thứ Tư</string>
+    <string name="every_thursday">Mọi Thứ Năm</string>
+    <string name="every_friday">Mọi Thứ Sáu</string>
+    <string name="every_saturday">Mọi Thứ Bảy</string>
+    <string name="every_sunday">Mọi Chủ Nhật</string>
+    <string name="every">Mọi</string>
+    <string name="day">ngày</string>
+
+    <string name="today">Hôm nay</string>
+    <string name="yesterday">Hôm qua</string>
+    <string name="tomorrow">Ngày mai</string>
+
+    <string name="toast_success">Sửa thành công</string>
+    <string name="toast_failed">Sửa thất bại</string>
+    <string name="toast_empty">Không để trống</string>
+
+    <string name="hour">Giờ</string>
+    <string name="minute">Phút</string>
+    <string name="second">Giây</string>
+
+    <string name="store">Cửa hàng</string>
+    <string name="tone_store">Cửa hàng giai điệu</string>
+    <string name="dowload_all">Tải xuống tất cả âm đã mua</string>
+
+</resources>

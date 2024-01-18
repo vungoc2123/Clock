@@ -39,6 +39,11 @@ public class toneAlarmFragment extends Fragment {
     private FragmentToneAlarmBinding binding;
     private toneAlarmAdapter adapter;
 
+    private String nameFragment;
+
+    public toneAlarmFragment(String nameFragment) {
+        this.nameFragment = nameFragment;
+    }
 
     public toneAlarmFragment() {
         // Required empty public constructor
@@ -101,20 +106,31 @@ public class toneAlarmFragment extends Fragment {
         CoordinatorLayout layout = sheetDialog.findViewById(R.id.bottomSheet_days);
         assert layout != null;
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-        int targetHeight = (int) (screenHeight * 0.92); // 92% của chiều cao màn hình
+        int targetHeight = (int) (screenHeight * 1); // 92% của chiều cao màn hình
 
-        adapter = new toneAlarmAdapter(activity);
+        adapter = new toneAlarmAdapter(activity, nameFragment);
         adapter.setData(toneAlarms);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         binding.recycleViewToneAlarm.setLayoutManager(linearLayoutManager);
         binding.recycleViewToneAlarm.setAdapter(adapter);
+        binding.recycleViewToneAlarm.setNestedScrollingEnabled(false);
         binding.tvToneAlarmCancel.setOnClickListener(view1 -> {
+           try {
+              if(adapter.my_player != null){
+                  if (adapter.my_player.isPlaying()) {
+                      adapter.my_player.stop();
+                  }
+                  adapter.my_player.reset();
+                  adapter.my_player.release();
+              }
+           }catch (Exception e){
+               System.out.println(e.getMessage());
+           }
             sheetDialog.cancel();
         });
 
         layout.setMinimumHeight(targetHeight);
         sheetDialog.show();
-//        sheetDialog.cancel();
     }
 }

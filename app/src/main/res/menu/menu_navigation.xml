@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/internationalTime"
-        android:title="International Time"
+        android:title="@string/world_clock"
         android:icon="@drawable/internet"
         />
     <item
         android:id="@+id/alarm"
-        android:title="Alarm"
+        android:title="@string/alarm"
         android:icon="@drawable/alarm"/>
     <item
         android:id="@+id/stopWatch"
-        android:title="Stop Watch"
+        android:title="@string/stopwatch"
         android:icon="@drawable/stopwatch"/>
     <item
         android:id="@+id/timer"
-        android:title="Timer"
+        android:title="@string/timer"
         android:icon="@drawable/timer"/>
     <item
         android:id="@+id/weather"
-        android:title="Weather"
+        android:title="@string/weather"
         android:icon="@drawable/sun"/>
 </menu>

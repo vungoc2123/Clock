@@ -81,8 +81,16 @@ public class weatherAdapter extends RecyclerView.Adapter<weatherAdapter.weatherH
             binding = ItemWeatherBinding.bind(itemView);
         }
     }
-    public static String getDayOfWeekString(int dayOfWeek) {
-        String[] daysOfWeek = {"Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"};
+    public String getDayOfWeekString(int dayOfWeek) {
+        String[] daysOfWeek = {
+                context.getString(R.string.sunday),
+                context.getString(R.string.monday),
+                context.getString(R.string.tuesday),
+                context.getString(R.string.wednesday),
+                context.getString(R.string.thursday),
+                context.getString(R.string.friday),
+                context.getString(R.string.saturday)
+        };
         return daysOfWeek[dayOfWeek - 1];
     }
 }

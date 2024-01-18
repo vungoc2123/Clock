@@ -46,6 +46,7 @@ public class AlarmDAO {
                 list.add(new AlarmModel(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getInt(5),cursor.getInt(6)));
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return list;
     }
 

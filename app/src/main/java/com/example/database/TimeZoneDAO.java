@@ -27,22 +27,12 @@ public class TimeZoneDAO {
         if(cursor.getCount()!=0){
             cursor.moveToFirst();
             do{
-                list.add(new TimeZoneModel(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3)));
+                list.add(new TimeZoneModel(cursor.getInt(0),cursor.getString(1),cursor.getString(2)));
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return list;
     }
 
-    public int updateTimeZone(TimeZoneModel timeZoneModel){
-        ContentValues values = new ContentValues();
-        values.put("name", timeZoneModel.getName());
-        values.put("timezone", timeZoneModel.getTimezone());
-        values.put("status", timeZoneModel.getStatus());
-        int kq = database.update("TIMEZONE",values,"id=?",new String[]{String.valueOf(timeZoneModel.getId())});
-        if(kq<=0){
-            return -1;
-        }
-        return 1;
-    }
 
 }

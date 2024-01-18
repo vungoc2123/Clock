@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_marginHorizontal="5dp"
     android:padding="10dp"
-    android:background="#2c2c2e">
+    android:background="@color/gray_bg">
         <TextView
             android:id="@+id/tv_weather_time"
             android:layout_width="70dp"

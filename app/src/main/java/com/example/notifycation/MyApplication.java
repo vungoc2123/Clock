@@ -19,11 +19,9 @@ public class MyApplication extends Application {
 
     private void createChannelNotification() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "PushNotification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "PushNotification", NotificationManager.IMPORTANCE_HIGH);
             NotificationManager manager = getSystemService(NotificationManager.class);
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/"+ R.raw.chuyencuboqua);
-            AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).build();
-            channel.setSound(uri,audioAttributes);
+//            AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).build();
             manager.createNotificationChannel(channel);
         }
     }

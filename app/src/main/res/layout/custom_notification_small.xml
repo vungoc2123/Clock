@@ -5,29 +5,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cv_notification"
     android:orientation="horizontal">
-<!--    <ImageView-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:src="@drawable/clock"-->
-<!--        android:layout_marginHorizontal="10dp"/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center">
         <TextView
+            android:id="@+id/notification_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Clock"
+            android:text="Alarm"
             android:textSize="16dp"
             style="@style/TextAppearance.Compat.Notification.Title"/>
-        <TextView
-            android:id="@+id/tv_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="Timer"
-            style="@style/TextAppearance.Compat.Notification.Line2"/>
+<!--        <TextView-->
+<!--            android:id="@+id/tv_label"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="Timer"-->
+<!--            style="@style/TextAppearance.Compat.Notification.Line2"/>-->
 
     </LinearLayout>
 </LinearLayout>

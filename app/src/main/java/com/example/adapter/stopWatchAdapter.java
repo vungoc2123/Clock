@@ -56,7 +56,7 @@ public class stopWatchAdapter extends RecyclerView.Adapter<stopWatchAdapter.stop
             holder.binding.tvItemStopWatchRing.setTextColor(Color.parseColor("#fdf2f3"));
             holder.binding.tvItemStopWatchTime.setTextColor(Color.parseColor("#fdf2f3"));
         }
-        holder.binding.tvItemStopWatchRing.setText("Ring "+String.valueOf(position+1));
+        holder.binding.tvItemStopWatchRing.setText(holder.itemView.getContext().getString(R.string.lap)+" "+(position+1));
         holder.binding.tvItemStopWatchTime.setText(time);
     }
 

@@ -7,13 +7,15 @@
     android:orientation="vertical"
     android:padding="20dp"
     tools:context="com.example.fragment.internationalFragment">
+
     <FrameLayout
         android:id="@+id/frame_timer"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_weight="1.7"
         android:visibility="gone">
+
         <ProgressBar
             android:id="@+id/pbTimer"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -29,142 +31,230 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginVertical="100dp"
+            android:fontFamily="@font/roboto_light"
             android:text="00 : 00 , 00"
             android:textColor="@color/white"
-            android:fontFamily="@font/roboto_light"
             android:textSize="50dp" />
     </FrameLayout>
+
     <FrameLayout
         android:id="@+id/linear_timer"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_margin="10dp">
-        <TimePicker
-            android:id="@+id/tp_timer"
+        android:layout_height="0dp"
+        android:layout_weight="1.7">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:format24Hour="HH:mm:ss"
-            android:timePickerMode="spinner"
-            android:theme="@style/styles"
             android:layout_gravity="center"
-            android:layout_margin="10dp"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <NumberPicker
+                android:id="@+id/hourPicker"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:backgroundTint="@color/black"
+                android:theme="@style/styles" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/hour"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+            <NumberPicker
+                android:id="@+id/minutePicker"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:backgroundTint="@color/black"
+                android:theme="@style/styles" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/minute"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <NumberPicker
+                android:id="@+id/secondPicker"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:backgroundTint="@color/black"
+                android:theme="@style/styles" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/second"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:background="@drawable/border_cardview"
-            android:layout_marginHorizontal="10dp" />
-    </FrameLayout>
+            android:background="@drawable/border_cardview" />
 
+    </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <View
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circle_border_white" />
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_timer_reset"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:backgroundTint="#333333"
-                app:cardCornerRadius="50dp">
-                <TextView
-                    android:id="@+id/tv_timer_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/roboto_light"
-                    android:textStyle="bold"
-                    android:text="Cancel"
-                    android:textColor="@color/white"
-                    android:textSize="18dp" />
-            </androidx.cardview.widget.CardView>
-        </FrameLayout>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
-        <FrameLayout
-            android:id="@+id/fm_timer_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <View
-                android:id="@+id/view_timer_start"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circle_border_green" />
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_timer_start"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:backgroundTint="#0b2c11"
-                app:cardCornerRadius="50dp">
-                <TextView
-                    android:id="@+id/tv_timer_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Start"
-                    android:fontFamily="@font/roboto_light"
-                    android:textStyle="bold"
-                    android:textColor="#03FD2A"
-                    android:textSize="18dp" />
-            </androidx.cardview.widget.CardView>
-        </FrameLayout>
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:cardBackgroundColor="#2c2c2e"
-        app:cardCornerRadius="10dp">
-
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
         <LinearLayout
-            android:id="@+id/linear_alarm_tone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
-            <TextView
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_border_white" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_timer_reset"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/gray_bg_btn"
+                    app:cardCornerRadius="40dp">
+
+                    <TextView
+                        android:id="@+id/tv_timer_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="@string/cancel"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+            </FrameLayout>
+
+            <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Alarm tone"
-                android:fontFamily="@font/roboto_light"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:layout_height="1dp"
+                android:layout_weight="1" />
 
-            <TextView
+            <FrameLayout
+                android:id="@+id/fm_timer_start"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Radar"
-                android:fontFamily="@font/roboto_light"
-                android:textStyle="bold"
-                android:textColor="#9e9da5"
-                android:textSize="18dp" />
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_keyboard_arrow_right_24"
-                app:tint="#9e9da5" />
+                <View
+                    android:id="@+id/view_timer_start"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_border_green" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_timer_start"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/green_bg"
+                    app:cardCornerRadius="40dp">
+
+                    <TextView
+                        android:id="@+id/tv_timer_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="@string/start"
+                        android:textColor="@color/green"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+            </FrameLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="@color/gray_bg"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:id="@+id/linear_alarm_tone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/when_the_timer_ends"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_timer_toneAlarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Radar"
+                    android:textColor="@color/gray_text"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_keyboard_arrow_right_24"
+                    app:tint="@color/gray_text" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 </LinearLayout>

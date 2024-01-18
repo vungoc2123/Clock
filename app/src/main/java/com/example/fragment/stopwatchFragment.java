@@ -5,12 +5,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,18 +28,15 @@ import java.util.List;
 public class stopwatchFragment extends Fragment {
 
     private FragmentStopwatchBinding binding;
-    private CountDownTimer countDownTimer;
-    private long time;
-    private long time2;
     private stopWatchAdapter adapter;
     private boolean isStart = false;
     private List<String> times;
     private int index = 1;
-    private long timeinitial = Long.MAX_VALUE;
-    private long timeRemainning = 0;
-    private long timeRemainning2 = 0;
-    private long timeRemainning3 = 0;
-
+    private Handler handler = new Handler();
+    private long time = 0;
+    private long timeItem = 0;
+    private final int delayMillis = 10;
+    private final int interval = 10;
     public stopwatchFragment() {
         // Required empty public constructor
     }
@@ -74,10 +73,9 @@ public class stopwatchFragment extends Fragment {
                 isStart = !isStart;
                 setPause();
             } else {
-                binding.tvStopWatchRing.setText("Ring");
+                binding.tvStopWatchRing.setText(getString(R.string.lap));
                 stopTime();
                 isStart = false;
-                timeRemainning = timeRemainning2;
                 setResume();
             }
         });
@@ -85,8 +83,7 @@ public class stopwatchFragment extends Fragment {
             if (!isStart) {
                 setStart();
             } else {
-                time2 = 0;
-                timeRemainning3 = timeRemainning2;
+                timeItem = 0;
                 times.add(binding.tvItemStopWatchTime.getText().toString());
                 Pair<Long, Long> minMaxPair = findMinMax(times);
                 adapter.setData(times, minMaxPair.first, minMaxPair.second);
@@ -94,6 +91,29 @@ public class stopwatchFragment extends Fragment {
                 index++;
             }
         });
+    }
+
+    private void startTime() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                time += interval;
+                long minutes = time / 60000;
+                long seconds = (time % 60000) / 1000;
+                long milliseconds = (time % 1000) / 10;
+                if(minutes >= 100){
+                    binding.tvStopwatchTime.setTextSize(70);
+                }
+                binding.tvStopwatchTime.setText(String.format("%02d:%02d,%02d", minutes, seconds, milliseconds));
+                timeItem += interval;
+                long minutesItem = timeItem / 60000;
+                long secondsItem = (timeItem % 60000) / 1000;
+                long millisecondsItem = (timeItem % 1000) / 10;
+                binding.tvItemStopWatchRing.setText(getString(R.string.lap)+ " "+ index);
+                binding.tvItemStopWatchTime.setText(String.format("%02d:%02d,%02d", minutesItem, secondsItem, millisecondsItem));
+                startTime();
+            }
+        }, delayMillis);
     }
 
     private void fetchData() {
@@ -108,47 +128,18 @@ public class stopwatchFragment extends Fragment {
         binding.recycleViewStopWatch.setNestedScrollingEnabled(false);
     }
 
-    private void startTime() {
-        countDownTimer = new CountDownTimer(timeinitial, 1) {
-            @Override
-            public void onTick(long l) {
-                time = timeinitial + timeRemainning - l;
-                timeRemainning2 = timeinitial + timeRemainning - l;
-                long minutes = (time / 1000) / 60;
-                long seconds = (time / 1000) % 60;
-                long milliseconds = (time % 1000) / 10;
-
-                binding.tvStopwatchTime.setText(String.format("%02d:%02d,%02d", minutes, seconds, milliseconds));
-                time2 = timeinitial + timeRemainning - l - timeRemainning3;
-
-                long minutes2 = (time2 / 1000) / 60;
-                long seconds2 = (time2 / 1000) % 60;
-                long milliseconds2 = (time2 % 1000) / 10;
-                binding.tvItemStopWatchRing.setText("Ring " + index);
-                binding.tvItemStopWatchTime.setText(String.format("%02d:%02d,%02d", minutes2, seconds2, milliseconds2));
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        };
-        countDownTimer.start();
-    }
-
     private void stopTime() {
-        countDownTimer.cancel();
+        handler.removeCallbacksAndMessages(null);
     }
 
     private void setPause() {
         binding.linearStopWatch.setVisibility(View.VISIBLE);
-        binding.tvStopWatchRing.setText("Ring");
+        binding.tvStopWatchRing.setText(getString(R.string.lap));
         binding.cvStopWatchRing.setClickable(true);
         binding.tvStopWatchRing.setAlpha(1f);
-        binding.tvStopWatchStart.setText("Pause");
-        binding.tvStopWatchStart.setTextColor(Color.parseColor("#FA0202"));
-        binding.cvStopWatchStart.getBackground().setTint(Color.parseColor("#340d0c"));
-        binding.cvStopWatchStart.setRadius(110);
+        binding.tvStopWatchStart.setText(getString(R.string.stop));
+        binding.tvStopWatchStart.setTextColor(ContextCompat.getColor(getActivity(), R.color.red));
+        binding.cvStopWatchStart.getBackground().setTint(ContextCompat.getColor(getActivity(), R.color.red_bg));
         binding.viewStopWatchStart.setBackgroundResource(R.drawable.circle_border_red);
     }
 
@@ -158,48 +149,36 @@ public class stopwatchFragment extends Fragment {
         binding.linearStopWatch.setVisibility(View.GONE);
         index = 1;
         time = 0;
-        time2 = 0;
-        timeRemainning = 0;
-        timeRemainning3 = 0;
+        timeItem =0;
         binding.tvStopwatchTime.setText("00:00,00");
         binding.tvStopWatchRing.setAlpha(0.5f);
         binding.cvStopWatchRing.setClickable(false);
-        binding.tvStopWatchStart.setText("Start");
-        binding.tvStopWatchStart.setTextColor(Color.parseColor("#03FD2A"));
-        binding.cvStopWatchStart.setRadius(110);
-        binding.cvStopWatchStart.getBackground().setTint(Color.parseColor("#0b2c11"));
+        binding.tvStopWatchStart.setText(getString(R.string.start));
+        binding.tvStopWatchStart.setTextColor(ContextCompat.getColor(getActivity(), R.color.green));
+        binding.cvStopWatchStart.getBackground().setTint(ContextCompat.getColor(getActivity(), R.color.green_bg));
         binding.cvStopWatchStart.setBackgroundResource(R.drawable.circle_border_green);
     }
 
     private void setResume() {
-        binding.tvStopWatchRing.setText("Reset");
-        binding.tvStopWatchStart.setText("Resume");
-        binding.tvStopWatchStart.setTextColor(Color.parseColor("#03FD2A"));
-        binding.cvStopWatchStart.setRadius(110);
-        binding.cvStopWatchStart.getBackground().setTint(Color.parseColor("#0b2c11"));
+        binding.tvStopWatchRing.setText(getString(R.string.reset));
+        binding.tvStopWatchStart.setText(getString(R.string.start));
+        binding.tvStopWatchStart.setTextColor(ContextCompat.getColor(getActivity(), R.color.green));
+        binding.cvStopWatchStart.getBackground().setTint(ContextCompat.getColor(getActivity(), R.color.green_bg));
         binding.viewStopWatchStart.setBackgroundResource(R.drawable.circle_border_green);
     }
 
     public Pair<Long, Long> findMinMax(List<String> list) {
         if (list == null || list.isEmpty()) {
-            // Trả về giá trị mặc định hoặc xử lý theo ý bạn nếu danh sách trống hoặc null
             return new Pair<>(0L, 0L);
         }
-        String timeStr = times.get(0).replaceAll("\\D", "");
-        long min = Long.parseLong(timeStr); // Giả sử phần tử đầu tiên là min
-        long max = Long.parseLong(timeStr); // Giả sử phần tử đầu tiên là max
-
-        for (int i = 1; i < list.size(); i++) {
-            String timeStr2 = times.get(i).replaceAll("\\D", "");
-            long current = Long.parseLong(timeStr2);
-            if (current < min) {
-                min = current;
-            }
-            if (current > max) {
-                max = current;
-            }
+        long min = Long.MAX_VALUE;
+        long max = Long.MIN_VALUE;
+        for (String timeStr : list) {
+            String cleanTimeStr = timeStr.replaceAll("\\D", "");
+            long current = Long.parseLong(cleanTimeStr);
+            min = Math.min(min, current);
+            max = Math.max(max, current);
         }
-
         return new Pair<>(min, max);
     }
 }

@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.adapter.alarmAdapter;
 import com.example.adapter.internationalTimeAdapter;
-import com.example.callback.SwipeToDeleteCallBack;
 import com.example.clock.R;
 import com.example.clock.databinding.FragmentAddAlarmBinding;
 import com.example.clock.databinding.FragmentAlarmBinding;
@@ -64,25 +64,47 @@ public class alarmFragment extends Fragment {
         adapter = new alarmAdapter(getActivity());
         alarmDAO = new AlarmDAO(getActivity());
         binding.imgAlarmAdd.setOnClickListener(view1 -> {
+            check = false;
+            binding.tvAlarmEdit.setText(getString(R.string.edit));
+            Handler handler = new Handler();
+            handler.postDelayed(delayedRunnable, 500);
             addAlarmFragment fragment = new addAlarmFragment();
             fragment.showBottomSheet(requireActivity());
         });
 
         binding.tvAlarmEdit.setOnClickListener(view1 -> {
             check = !check;
+            if(check){
+                binding.tvAlarmEdit.setText(getString(R.string.done));
+            }else{
+                binding.tvAlarmEdit.setText(getString(R.string.edit));
+            }
             fetchData();
         });
         fetchData();
         adapter.onItemClick(alarmModel -> {
+            check = false;
+            Handler handler = new Handler();
+            handler.postDelayed(delayedRunnable, 500);
             addAlarmFragment fragment = new addAlarmFragment();
             fragment.showDetailAlarm(requireActivity(),alarmModel);
+            binding.tvAlarmEdit.setText("Edit");
         });
+    }
+    Runnable delayedRunnable = new Runnable() {
+        @Override
+        public void run() {
+            fetchData();
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchData();
     }
 
     public void fetchData() {
-//        SwipeToDeleteCallBack callback = new SwipeToDeleteCallBack(adapter);
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
-//        itemTouchHelper.attachToRecyclerView(binding.recycleViewInternational);
         list.clear();
         list = alarmDAO.getAllAlarm();
         list = sortList(list);

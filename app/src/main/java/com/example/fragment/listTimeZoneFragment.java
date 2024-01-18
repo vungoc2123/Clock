@@ -10,6 +10,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -30,12 +31,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class listTimeZoneFragment extends BottomSheetDialogFragment{
+public class listTimeZoneFragment extends BottomSheetDialogFragment {
     private FragmentListTimezoneBinding binding;
     private TimeZoneDAO timeZoneDAO;
     private timeZoneAdapter adapter;
     private List<TimeZoneModel> list;
-    BottomSheetDialog sheetDialog ;
+    BottomSheetDialog sheetDialog;
+
     public listTimeZoneFragment() {
         // Required empty public constructor
     }
@@ -54,7 +56,7 @@ public class listTimeZoneFragment extends BottomSheetDialogFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentListTimezoneBinding.inflate(inflater,container,false);
+        binding = FragmentListTimezoneBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -62,7 +64,8 @@ public class listTimeZoneFragment extends BottomSheetDialogFragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-    public void showBottomSheet(Activity activity){
+
+    public void showBottomSheet(Activity activity) {
         sheetDialog = new BottomSheetDialog(activity);
         BottomSheetBehavior<View> bottomSheetBehavior;
         binding = FragmentListTimezoneBinding.inflate(LayoutInflater.from(activity));
@@ -74,9 +77,8 @@ public class listTimeZoneFragment extends BottomSheetDialogFragment{
         assert layout != null;
 
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-        int targetHeight = (int) (screenHeight * 0.92); // 95% của chiều cao màn hình
+        int targetHeight = (int) (screenHeight * 1);
         layout.setMinimumHeight(targetHeight);
-
 
         timeZoneDAO = new TimeZoneDAO(activity);
         list = new ArrayList<>();
@@ -88,8 +90,16 @@ public class listTimeZoneFragment extends BottomSheetDialogFragment{
         binding.recycleViewTimeZone.setLayoutManager(linearLayoutManager);
         binding.recycleViewTimeZone.setAdapter(adapter);
         adapter.onItemClick(() -> {
-            sheetDialog.cancel();
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    sheetDialog.cancel();
+                }
+            };
+            handler.postDelayed(runnable, 100);
         });
+
 
         binding.tvTimeZoneCancel.setOnClickListener(view1 -> {
             sheetDialog.cancel();
@@ -111,8 +121,6 @@ public class listTimeZoneFragment extends BottomSheetDialogFragment{
 
             }
         });
-
-
 
         sheetDialog.show();
     }
