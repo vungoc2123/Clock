@@ -21,7 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WeatherRepository {
-    String apikey = "rK3WpFTcVXveEoPOG8xZOiCpjasZiAg8";
+    String apikey = "QEL6t7ieh0X3nzTpGnjdmnCGwsXGZlnW";
     WeatherService weatherService = ApiService.getService();
     public LiveData<String> getCity(String nameCity) {
         MutableLiveData<String> data = new MutableLiveData<>();
