@@ -21,16 +21,20 @@ public class TimeZoneDAO {
         database = helper.getWritableDatabase();
     }
 
-    public List<TimeZoneModel> getAllTimeZone(){
-        Cursor cursor = database.rawQuery("SELECT * FROM TIMEZONE",null);
+    public List<TimeZoneModel> getAllTimeZone() {
         List<TimeZoneModel> list = new ArrayList<>();
-        if(cursor.getCount()!=0){
-            cursor.moveToFirst();
-            do{
-                list.add(new TimeZoneModel(cursor.getInt(0),cursor.getString(1),cursor.getString(2)));
-            }while (cursor.moveToNext());
+        try {
+            Cursor cursor = database.rawQuery("SELECT * FROM TIMEZONE", null);
+            if (cursor.getCount() != 0) {
+                cursor.moveToFirst();
+                do {
+                    list.add(new TimeZoneModel(cursor.getInt(0), cursor.getString(1), cursor.getString(2)));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        cursor.close();
         return list;
     }
 
