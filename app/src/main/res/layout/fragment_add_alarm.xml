@@ -11,22 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp">
             <TextView
                 android:id="@+id/tv_alarm_cancel"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/cancel"
                 android:fontFamily="@font/roboto_light"
                 android:textStyle="bold"
                 android:textColor="@color/yellow_text"
                 android:layout_gravity="start"
-                android:textSize="18dp"/>
+                android:textSize="18dp"
+                android:layout_alignParentStart="true"/>
             <TextView
                 android:id="@+id/tv_alarm_save"
                 android:layout_width="wrap_content"
@@ -36,8 +36,9 @@
                 android:textStyle="bold"
                 android:textColor="@color/yellow_text"
                 android:layout_gravity="start"
-                android:textSize="18dp"/>
-        </LinearLayout>
+                android:textSize="18dp"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
